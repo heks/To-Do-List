@@ -20,12 +20,20 @@ $(document).ready(function() {
 	});
  
 	$('li').live('click',function() {
-		$(this).css("text-decoration","line-through");
+		if( $(this).hasClass('remove_me') ) {
+			$(this).css("text-decoration","normal");
+			$(this).removeClass("remove_me")
+		}
+		else {
+			$(this).css("text-decoration","line-through");
+			$(this).attr('class',"remove_me")
+		}
 	});
 
 
 	$("#remove_all_items").click(function() {
-		$("#mylist").empty();
+		//var x = $('#mylist').filter('text-decoration','line-through')
+		$(".remove_me").remove()
 	});
 
 })
