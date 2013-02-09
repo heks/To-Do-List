@@ -14,7 +14,7 @@ $(document).ready(function() {
     	});
 
     	//var y = $("<input type="button" id="remove_item" value="Remove" </button>").val(); 
-    	$("<li>" + x + "</li>").appendTo("#mylist").fadeIn("slow")
+    	$("<li>" + x + "</li>").fadeIn("slow").appendTo("#mylist")
 
 
 	});
