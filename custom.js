@@ -14,18 +14,18 @@ $(document).ready(function() {
     	});
 
     	//var y = $("<input type="button" id="remove_item" value="Remove" </button>").val(); 
-    	$("<li>" + x + "</li>").appendTo("#mylist")
+    	$("<li>" + x + "</li>").appendTo("#mylist").fadeIn("slow")
 
 
 	});
  
 	$('li').live('click',function() {
 		if( $(this).hasClass('remove_me') ) {
-			$(this).css("text-decoration","normal");
+			$(this).css("text-decoration","none");
 			$(this).removeClass("remove_me")
 		}
 		else {
-			$(this).css("text-decoration","line-through");
+			$(this).css("text-decoration","line-through")
 			$(this).attr('class',"remove_me")
 		}
 	});
@@ -33,7 +33,10 @@ $(document).ready(function() {
 
 	$("#remove_all_items").click(function() {
 		//var x = $('#mylist').filter('text-decoration','line-through')
-		$(".remove_me").remove()
+		$(".remove_me").fadeTo(1000,0.1).animate({height:'toggle'},"slow")
+
+		setTimeout(function() {
+			$('.remove_me').remove(); }, 4000);
 	});
 
 })
