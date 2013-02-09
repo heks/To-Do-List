@@ -20,7 +20,10 @@ $(document).ready(function() {
 	});
  
 	$('li').live('click',function() {
+		if ($("li").is(':animated')) return false;
+
 		if( $(this).hasClass('remove_me') ) {
+
 			$(this).css("text-decoration","none");
 			$(this).removeClass("remove_me")
 		}
@@ -31,12 +34,17 @@ $(document).ready(function() {
 	});
 
 
-	$("#remove_all_items").click(function() {
+	$("#remove_all_items").bind('click',function() {
+		if ($(".remove_me").is(':animated')) return false;
 		//var x = $('#mylist').filter('text-decoration','line-through')
-		$(".remove_me").fadeTo(1000,0.1).animate({height:'toggle'},"slow")
+		//setTimeout(function () {
+			$(".remove_me").fadeTo(1000,0.1).animate({height:'toggle'},"slow",function(){
+				$('.remove_me').remove()});
+				//},500)
 
-		setTimeout(function() {
-			$('.remove_me').remove(); }, 4000);
+		//setTimeout(function() {
+		//	$('.remove_me').remove(); }, 3000)
+		
 	});
 
 })
