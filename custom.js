@@ -10,7 +10,10 @@ function remove_list_item()
 $(document).ready(function() {
 	$("#add_new_item").click(function() {
 
-		
+		if( $(":input").val() == "" ) {
+    		return false;
+    	}
+
     	var x = "<li>";
     	x +=  $("#new_item").val();
     	x += "<button id=\"delete\">X</button>";
