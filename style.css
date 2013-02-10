@@ -29,7 +29,7 @@ li {
   clear: both;
 }
  
-li #delete {
+li #delete, li #add {
 	display: block;
 	float: right;
 	padding: 2px 2px;
@@ -45,7 +45,7 @@ li:last-child {
 	text-align: center;
 } 
 
-#add_new_item,#remove_all_items,#new_item,#remove_item,#delete {
+#add_new_item,#remove_all_items,#new_item,#remove_item,#delete,#add {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -67,12 +67,12 @@ li:last-child {
 	text-shadow:1px 1px 0px #ffffff;
 }
 
-#add_new_item:hover,#remove_all_items:hover, #new_item:hover, #delete:hover {
+#add_new_item:hover,#remove_all_items:hover, #new_item:hover, #delete:hover,#add:active {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
-}#new_item:active,#remove_all_items:active,#delete:active {
+}#new_item:active,#remove_all_items:active,#delete:active,#add:active {
 	position:relative;
 	top:1px;
 }
