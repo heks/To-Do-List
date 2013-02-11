@@ -1,32 +1,66 @@
 
-
-
+function sortmyway(data_A, data_B)
+{
+    return (data_B - data_A);
+}
+	
+	var currDataIterator = 0;
+	var currData = [];
 
 $(document).ready(function() {
-
 	var i=0;
 	var lists = ["listName1", "listName2", "listName3"];
+	var currList = 0;
+	var remlist = [];
+//	localStorage.clear();
 
-	for( i = 0; i < localStorage.length; i++) {
-    	$("#mylist").append("<li id='task-"+i+"'>" + localStorage.getItem("task-"+i) + "<button id=\"delete\">x</button></li>");
-    }
+	if(localStorage.getItem(lists[currList]) != null) {
+		var listValues = JSON.parse(localStorage.getItem(lists[currList]));
+		$.each(listValues,function(key,val){
+			currData.push(val);
+    		$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").fadeIn("fast").appendTo("#mylist")
+    		currDataIterator=key+1;
+   		 })
+	}
+
+	//for( i = 0; i < listValues.size(); i++) {
+    //	$("#mylist").append("<li>" + listValues[i] + "<button id=\"delete\">x</button></li>");
+    //}
 
 	$("#add_new_item").click(function() {
 
 		if( $(":input").val() == "" ) {
     		return false;
     	}
-    	localStorage.setItem( "task-"+i, $("#new_item").val() );
-    	$("<li id='task-"+i+"'>" + localStorage.getItem("task-"+i) + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
-    	 i++;
+    	currData.push($("#new_item").val())
+    	localStorage.setItem(lists[currList], JSON.stringify(currData));
+    	$("<li id='"+currDataIterator+"'>" + currData[currDataIterator] + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
+    	currDataIterator++;
+
+	});
+
+	$('#delete').live('click',function() {
+		if ($("li").is(':animated')) return false;
+		
+		$(this).parent().fadeTo(1000,0.1).animate({height:'toggle'},"fast",function(){
+			var j = $(this).attr('id')
+			console.log(currData.splice(j,1))
+    		localStorage.setItem(lists[currList], JSON.stringify(currData));
+    		$("#mylist li").remove()
+    		$.each(currData,function(key,val){
+    			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").appendTo("#mylist")
+    		})
+		});
+    		//setTimeout(function() {$(this).remove()}, 800);
 
 	});
 
 	$('#new_item').bind('keypress', function(e) {
 		if(e.keyCode==13){
-    		localStorage.setItem( "task-"+i, $("#new_item").val() );
-    		$("<li id='task-"+i+"'>" + localStorage.getItem("task-"+i) + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
-    		i++;
+    		currData.push($("#new_item").val())
+    		localStorage.setItem(lists[currList], JSON.stringify(currData));
+    		$("<li id='"+currDataIterator+"'>" + currData[currDataIterator] + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
+    		currDataIterator++;
 		}
 	});
 
@@ -42,31 +76,22 @@ $(document).ready(function() {
     	$(x).fadeIn("slow").appendTo($(this).parent());
 	});
 */
-	$('#delete').live('click',function() {
-		if ($("li").is(':animated')) return false;
-		
-		$(this).parent().fadeTo(1000,0.1).animate({height:'toggle'},"fast",function(){
-			localStorage.removeItem($(this).attr("id"))
-    		for(i=0; i<localStorage.length; i++) {
-      			if( !localStorage.getItem("task-"+i)) {
-        		localStorage.setItem("task-"+i, localStorage.getItem('task-' + (i+1) ) );
-        		localStorage.removeItem('task-'+ (i+1) );
-      			}
-      		}	
-      		$(this).remove()
 
-		});
-	});
 
 	$('li').live('click',function() {
 		if ($("li").is(':animated')) return false;
-
 		if( $(this).hasClass('remove_me') ) {
-
+			var g = $(this).attr('id');
+			remlist = jQuery.grep(remlist, function(value) {
+ 				return value != g;
+			});
+			console.log(remlist)
 			$(this).css("text-decoration","none");
 			$(this).removeClass("remove_me")
 		}
 		else {
+			remlist.push(parseInt($(this).attr('id')))
+			console.log(remlist)
 			$(this).css("text-decoration","line-through")
 			$(this).attr('class',"remove_me")
 		}
@@ -75,10 +100,17 @@ $(document).ready(function() {
 
 	$("#remove_all_items").bind('click',function() {
 		if ($(".remove_me").is(':animated')) return false;
-
-
 		$(".remove_me").fadeTo(1000,0.1).animate({height:'toggle'},"slow",function(){
-			$('.remove_me').remove()
+			currData = jQuery.grep(currData, function(n, z) {
+    			return jQuery.inArray(z, remlist) == -1;	
+			});
+    		localStorage.setItem(lists[currList], JSON.stringify(currData));
+			$("#mylist li").remove()
+    		$.each(currData,function(key,val){
+    			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").appendTo("#mylist")
+    		})
+    		currDataIterator = currData.length;
+    		remlist = [];
 		});
 		//alert(localStorage.getItem("task-"+3))
 	});
