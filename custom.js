@@ -1,21 +1,18 @@
-
-function sortmyway(data_A, data_B)
-{
-    return (data_B - data_A);
-}
 	
 	var currDataIterator = 0;
 	var currData = [];
-
-$(document).ready(function() {
-	var i=0;
 	var lists = ["listName1", "listName2", "listName3"];
 	var currList = 0;
 	var remlist = [];
+$(document).ready(function() {
+	var i=0;
+
 //	localStorage.clear();
 
 	if(localStorage.getItem(lists[currList]) != null) {
+		$("#mylist li").remove()
 		var listValues = JSON.parse(localStorage.getItem(lists[currList]));
+		console.log(listValues)
 		$.each(listValues,function(key,val){
 			currData.push(val);
     		$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").fadeIn("fast").appendTo("#mylist")
@@ -26,6 +23,70 @@ $(document).ready(function() {
 	//for( i = 0; i < listValues.size(); i++) {
     //	$("#mylist").append("<li>" + listValues[i] + "<button id=\"delete\">x</button></li>");
     //}
+
+    $("#left_list").live('click',function() {
+
+    	localStorage.setItem(lists[currList], JSON.stringify(currData));
+    	if(currList == 0) {
+			currList = 1;
+			$("#left_list").off()
+			$("#right_list").on()
+    	} else if(currList == 2) {
+    		currList = 0;
+    		$("#left_list").on()
+    		$("#right_list").on()
+    	}
+    	else {
+			$("#left_list").off()
+    		$("#right_list").on()
+    		return;
+    	}
+		if(localStorage.getItem(lists[currList]) != null) {
+			currData = JSON.parse(localStorage.getItem(lists[currList]));
+			currDataIterator=currData.length;
+		} else {
+			currData = [];
+			currDataIterator=0;
+		}
+		console.log(currData)
+		$("#mylist li").remove()
+
+			$.each(currData,function(key,val){
+    			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").appendTo("#mylist")
+    		})
+	});
+
+
+	$("#right_list").live('click',function() {    		
+		localStorage.setItem(lists[currList], JSON.stringify(currData));
+		if(currList == 0) {
+			currList = 2;
+			$("#right_list").off()
+			$("#left_list").on()
+    	} else if (currList == 1) {
+    		currList = 0;
+    		$("#right_list").on()
+    		$("#left_list").on()
+    	} else {
+    		$("#right_list").off()
+    		$("#left_list").on()
+    		return;
+    	}
+
+    	if(localStorage.getItem(lists[currList]) != null) {
+			currData = JSON.parse(localStorage.getItem(lists[currList]));
+			currDataIterator=currData.length;
+		} else {
+			currData = [];
+			currDataIterator=0;
+		}
+		console.log(currData)
+		$("#mylist li").remove()
+		$.each(currData,function(key,val){
+    		$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").appendTo("#mylist")
+    	})
+
+	});
 
 	$("#add_new_item").click(function() {
 
@@ -63,20 +124,6 @@ $(document).ready(function() {
     		currDataIterator++;
 		}
 	});
-
-/*
-	$("#add").live('click',function() {
-		var x = "<ul>";
-		x += "<li>"
-    	x +=  $("#new_item").val();
-    	x += "<button id=\"delete\">x</button>";
-    	x += "<button id=\"add\">+</button>";
-    	x += "</li>"
-    	x += "</ul>";	
-    	$(x).fadeIn("slow").appendTo($(this).parent());
-	});
-*/
-
 
 	$('li').live('click',function() {
 		if ($("li").is(':animated')) return false;

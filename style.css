@@ -4,18 +4,19 @@ ul
 }
 
 div {
-  width: 700px;
+  width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
  
 h1 {
-  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+  font: 500 40px/1.5 Helvetica, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   text-align: center;
 }
- 
+
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -45,7 +46,15 @@ li:last-child {
 	text-align: center;
 } 
 
-#add_new_item,#remove_all_items,#new_item,#remove_item,#delete,#add {
+#left_list {	
+	float: left;
+}
+
+#right_list {
+	float: right;
+}
+
+#left_list,#right_list,#add_new_item,#remove_all_items,#new_item,#remove_item,#delete,#add {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -67,12 +76,14 @@ li:last-child {
 	text-shadow:1px 1px 0px #ffffff;
 }
 
-#add_new_item:hover,#remove_all_items:hover, #new_item:hover, #delete:hover,#add:active {
+#left_list:hover,#right_list:hover,#add_new_item:hover,#remove_all_items:hover, #new_item:hover, #delete:hover,#add:active {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
-}#new_item:active,#remove_all_items:active,#delete:active,#add:active {
+}
+
+#left_list:active,#right_list:active,#new_item:active,#remove_all_items:active,#delete:active,#add:active {
 	position:relative;
 	top:1px;
 }
