@@ -5,10 +5,10 @@
 $(document).ready(function() {
 
 	var i=0;
+	var lists = ["listName1", "listName2", "listName3"];
 
 	for( i = 0; i < localStorage.length; i++) {
-		if(localStorage.getItem("task-"+i))
-    		$("#mylist").append("<li id='task-"+i+"'>" + localStorage.getItem("task-"+i) + "<button id=\"delete\">x</button></li>");
+    	$("#mylist").append("<li id='task-"+i+"'>" + localStorage.getItem("task-"+i) + "<button id=\"delete\">x</button></li>");
     }
 
 	$("#add_new_item").click(function() {
@@ -28,7 +28,7 @@ $(document).ready(function() {
     		$("<li id='task-"+i+"'>" + localStorage.getItem("task-"+i) + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
     		i++;
 		}
-});
+	});
 
 /*
 	$("#add").live('click',function() {
@@ -75,19 +75,7 @@ $(document).ready(function() {
 
 	$("#remove_all_items").bind('click',function() {
 		if ($(".remove_me").is(':animated')) return false;
-		for(i=0;i < localStorage.length; i++) {
-			if($(".remove_me").attr("id"));
-				alert($(".remove_me").attr("id"))
-				localStorage.removeItem($(".remove_me").attr("id"))
 
-		}
-		//alert(x);
-		//for(i=0; i<localStorage.length; i++) {
-      	//		if( !localStorage.getItem("task-"+i)) {
-        //		localStorage.setItem("task-"+i, localStorage.getItem('task-' + (i+1) ) );
-        //		localStorage.removeItem('task-'+ (i+1) );
-      	//		}
-      	//	}	
 
 		$(".remove_me").fadeTo(1000,0.1).animate({height:'toggle'},"slow",function(){
 			$('.remove_me').remove()
