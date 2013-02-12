@@ -104,7 +104,7 @@ $(document).ready(function() {
 
 	$("#add_new_item").click(function() {
 
-		if( $(":input").val() == "" ) {
+		if( $("#new_item").val() == "" ) {
     		return false;
     	}
     	currData.push($("#new_item").val())
@@ -152,6 +152,9 @@ $(document).ready(function() {
 
 	$('#new_item').bind('keypress', function(e) {
 		if(e.keyCode==13){
+			if( $("#new_item").val() == "" ) {
+    			return false;
+    		}
     		currData.push($("#new_item").val())
     		localStorage.setItem(lists[currList], JSON.stringify(currData));
     		$("<li id='"+currDataIterator+"'>" + currData[currDataIterator] + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
