@@ -6,9 +6,21 @@
 	var currList = 5;
 	var remlist = [];
 $(document).ready(function() {
+
+	$("#new_item").attr("value", "Add item...");
+	text = "Add item...";
+
 	var i=0;
 
-	//localStorage.clear();
+	$("#new_item").blur(function() {
+		$(this).removeClass("active");
+		if($(this).attr("value") == "") $(this).attr("value", text);
+	});
+
+	$("#new_item").focus(function() {
+		$(this).addClass("active");
+		if($(this).attr("value") == text) $(this).attr("value", "");
+	});
 
 	if(localStorage.getItem(lists[currList]) != null) {
 		$("#mylist li").remove()
@@ -120,7 +132,7 @@ $(document).ready(function() {
     	localStorage.setItem(lists[currList], JSON.stringify(currData));
     	$("<li id='"+currDataIterator+"'>" + currData[currDataIterator] + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
     	currDataIterator++;
-
+		$("#new_item").attr("value", text);	// reset the input field
 	});
 
 	$('#delete').live('click',function() {
@@ -168,6 +180,7 @@ $(document).ready(function() {
     		localStorage.setItem(lists[currList], JSON.stringify(currData));
     		$("<li id='"+currDataIterator+"'>" + currData[currDataIterator] + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
     		currDataIterator++;
+    		$("#new_item").attr("value", text);	// reset the input field
 		}
 	});
 
