@@ -10,7 +10,7 @@ div {
 }
  
 h1 {
-  font: 900 65px/2 Arial, bold sans-serif;
+  font: 800 65px/2 Arial, bold sans-serif;
   margin: 0;
   padding: 0;
   color: #378de5;
@@ -24,6 +24,8 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid #84bbf3;
+
 }
  
 li {

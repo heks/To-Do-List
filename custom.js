@@ -33,6 +33,15 @@ $(document).ready(function() {
 	//for( i = 0; i < listValues.size(); i++) {
     //	$("#mylist").append("<li>" + listValues[i] + "<button id=\"delete\">x</button></li>");
     //}
+    
+ //   $("#set_title").live('click',function() {
+   // 	var g = $("#new_item").val()
+//	    $("h1").remove();
+	 //   $("h1").append("<div>"g "\>");
+
+   // });
+
+
 
     $("#left_list").live('click',function() {
       	localStorage.setItem(remlists[currList], JSON.stringify(remlist));
@@ -60,9 +69,9 @@ $(document).ready(function() {
 		$("#mylist li").remove()
 		$.each(currData,function(key,val){
 			if($.inArray(key,remlist) != -1) {
-				$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").attr('class',"remove_me").css("text-decoration","line-through").appendTo("#mylist")
+				$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").attr('class',"remove_me").css("text-decoration","line-through").fadeIn('slow').appendTo("#mylist")
 			} else {
-    			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").appendTo("#mylist")
+    			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").fadeIn('slow').appendTo("#mylist")
     		}    	
     	})
 	});
@@ -94,9 +103,9 @@ $(document).ready(function() {
 		$("#mylist li").remove()
 		$.each(currData,function(key,val){
 			if($.inArray(key,remlist) != -1) {
-				$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").attr('class',"remove_me").css("text-decoration","line-through").appendTo("#mylist")
+				$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").attr('class',"remove_me").css("text-decoration","line-through").fadeIn('slow').appendTo("#mylist")
 			} else {
-    			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").appendTo("#mylist")
+    			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").fadeIn('slow').appendTo("#mylist")
     		}    	
     	})
 
