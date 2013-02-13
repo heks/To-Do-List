@@ -180,7 +180,7 @@ $(document).ready(function() {
     		localStorage.setItem(lists[currList], JSON.stringify(currData));
     		$("<li id='"+currDataIterator+"'>" + currData[currDataIterator] + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
     		currDataIterator++;
-    		$("#new_item").attr("value", text);	// reset the input field
+    		$("#new_item").attr("value", "");	// reset the input field
 		}
 	});
 
