@@ -125,7 +125,7 @@ $(document).ready(function() {
 
 	$("#add_new_item").click(function() {
 
-		if( $("#new_item").val() == "" ) {
+		if( $("#new_item").val() == "" || $("#new_item").val() == text ) {
     		return false;
     	}
     	currData.push($("#new_item").val())
