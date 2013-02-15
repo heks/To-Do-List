@@ -1,11 +1,13 @@
 	
 	var currDataIterator = 0;
 	var currData = [];
-	var lists = ["listName0","listName1", "listName2", "listName3", "listName4", "listName5", "listName6", "listName7", "listName8", "listName9", "listName10"];
-	var remlists = ["remName0","remName1", "remName2", "remName3", "remName4", "remName5", "remName6", "remName7", "remName8", "remName9", "remName10"];
-	var currList = 5;
+	var lists = ["listName0"];
+	var remlists = ["remName0"];
+	var currList = 0;
 	var remlist = [];
 $(document).ready(function() {
+
+	//localStorage.clear()
 
 	$("#new_item").attr("value", "Add item...");
 	text = "Add item...";
@@ -39,31 +41,25 @@ $(document).ready(function() {
 		$.each(remlist_temp,function(key,val){
 			remlist[key] = parseInt(val);
 		})
-		console.log(remlist)
 	}
 
-	//for( i = 0; i < listValues.size(); i++) {
-    //	$("#mylist").append("<li>" + listValues[i] + "<button id=\"delete\">x</button></li>");
-    //}
-    
- //   $("#set_title").live('click',function() {
-   // 	var g = $("#new_item").val()
-//	    $("h1").remove();
-	 //   $("h1").append("<div>"g "\>");
-
-   // });
-
-
+    if(currList == 0) {
+		$("#left_list").attr('disabled', 'disabled');
+		$("#left_list").hide();
+	}
 
     $("#left_list").live('click',function() {
       	localStorage.setItem(remlists[currList], JSON.stringify(remlist));
 
     	localStorage.setItem(lists[currList], JSON.stringify(currData));
+
+    	currList--;
     	if(currList == 0) {
-			currList = 10;
-    	} else {
-    		currList = currList-1;
-    	}
+			$("#left_list").attr('disabled', 'disabled');
+			$("#left_list").hide();
+		}
+
+		console.log(currList)
 		if(localStorage.getItem(lists[currList]) != null) {
 			currData = JSON.parse(localStorage.getItem(lists[currList]));
 			remlist = [];
@@ -90,13 +86,22 @@ $(document).ready(function() {
 
 
 	$("#right_list").live('click',function() { 
+		$("#left_list").show();
+		$("#left_list").removeAttr("disabled");
+
 		localStorage.setItem(remlists[currList], JSON.stringify(remlist));
 		localStorage.setItem(lists[currList], JSON.stringify(currData));
-		if(currList == 10) {
-			currList = 0;
-    	} else {
-    		currList = currList+1;
-    	}
+
+		// make a new list element and store into array
+		currList++;
+		console.log(Object.size(lists))
+		if(currList == Object.size(lists)) {
+			remlists.push("remName"+currList);
+			lists.push("listName"+currList);
+		}
+		console.log(currList);
+		console.log(lists);
+
 
     	if(localStorage.getItem(lists[currList]) != null) {
 			currData = JSON.parse(localStorage.getItem(lists[currList]));
@@ -111,7 +116,7 @@ $(document).ready(function() {
 			remlist = [];
 			currDataIterator=0;
 		}
-		console.log(remlist)
+		//console.log(remlist)
 		$("#mylist li").remove()
 		$.each(currData,function(key,val){
 			if($.inArray(key,remlist) != -1) {
@@ -222,6 +227,15 @@ $(document).ready(function() {
 		});
 		//alert(localStorage.getItem("task-"+3))
 	});
+
+	Object.size = function(obj) {
+    	var size = 0, key;
+    	for (key in obj) {
+        	if (obj.hasOwnProperty(key)) size++;
+    	}
+    	return size;
+	};
+
 
 })
 
