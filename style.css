@@ -49,7 +49,12 @@ li:last-child {
 }
 
 #list {
-	text-align: center;
+	text-align: center; 
+}
+
+#center {
+	float: center;
+	padding-left: 64px 
 } 
 
 #left_list {	

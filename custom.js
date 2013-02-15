@@ -84,6 +84,10 @@ $(document).ready(function() {
     	})
 	});
 
+	$("#right_list").live('click',function() { 
+
+	});
+	
 
 	$("#right_list").live('click',function() { 
 		$("#left_list").show();
@@ -228,6 +232,7 @@ $(document).ready(function() {
 		//alert(localStorage.getItem("task-"+3))
 	});
 
+	/* helper function to find the size of an arraym */
 	Object.size = function(obj) {
     	var size = 0, key;
     	for (key in obj) {

@@ -14,12 +14,19 @@
 
   <body>
   	<div>
-		<h1><input type="button" id="left_list" class="button_class" value="<" </button>My Title<input class="button_class" type="button" id="right_list" value=">" </button> </h1>
+		<h1 id="title">
+			My Title
+		</h1>
 			<div id="list">
+				<input type="button" id="left_list" class="button_class" value="<" </button> 
+				<input class="button_class" type="button" id="right_list" value=">" </button> 
+
+				<div id="center">
 				<input type="text" id="new_item" />
 				<button class="button_class" id="add_new_item">Add</button>
 				<!--<button class="button_class" id="set_title">Set Title</button>-->
 				<input class="button_class" type="button" id="remove_all_items" value="Remove Completed" </button>
+				</div>
 				<ul id="mylist">
 
 				</ul>
