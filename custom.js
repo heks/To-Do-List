@@ -9,10 +9,6 @@
 	var remlist = [];
 $(document).ready(function() {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 15c5e4f909f02df782be3922834a50ed45789b1f
 	//localStorage.clear()
 
 	$("#new_item").attr("value", "Add item...");
