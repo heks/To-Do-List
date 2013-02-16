@@ -3,16 +3,59 @@
 	var currData = [];
 	var lists = ["listName0"];
 	var remlists = ["remName0"];
+	var titlearray = ["Set List"];
 	var currList = 0;
+	var currTitle = ""
 	var remlist = [];
 $(document).ready(function() {
 
-	//localStorage.clear()
+	localStorage.clear()
 
 	$("#new_item").attr("value", "Add item...");
 	text = "Add item...";
 
 	var i=0;
+
+    $("#input_title").live('click',function() {
+    	$("#input_title").remove()
+    	$("h1").append("<input type=\"text\" id=\"input_title\" />");
+    	$("h1 #input_title").trigger('focus');
+
+
+	});
+/*
+    $("#input_title").live('focus',function() {
+		if(e.keyCode==13) {
+			if( $("#input_title").val() == "") {
+    			return false;
+    		}
+    	currData.push($("#input_title").val())
+    	localStorage.setItem(lists[currList], JSON.stringify(currData));
+    	$("<li id='"+currDataIterator+"'>" + currData[currDataIterator] + "<button id=\"delete\">x</button></li>").fadeIn("fast").appendTo("#mylist")
+    	currDataIterator++;
+		$("#new_item").attr("value", text);	// reset the input field
+
+
+		//	titlearray[currList] = ;
+		}
+    });
+*/
+	$("#input_title").live( 'focus', function() {
+	//		alert("hello")
+	
+		$("#input_title").bind('keypress', function(e) {
+			if(e.keyCode==13) {
+				if( $("#input_title").val() == "") {
+    				return false;
+    			}
+    			titlearray[currList] = $("#input_title").val();
+    			currTitle = $("#input_title").val();
+      			localStorage.setItem(titlearray[currList], JSON.stringify($("#input_title").val()));
+    			$("#input_title").remove()
+    			$("h1").append("<div id=\"input_title\">" + currTitle + "</div>" ).fadeIn('fast');
+    		}
+		})
+	});
 
 	$("#new_item").blur(function() {
 		$(this).removeClass("active");
@@ -28,7 +71,8 @@ $(document).ready(function() {
 		$("#mylist li").remove()
 		var listValues = JSON.parse(localStorage.getItem(lists[currList]));
 		var remlist_temp = JSON.parse(localStorage.getItem(remlists[currList]));
-		console.log(remlist_temp)
+		var currTitle_temp = JSON.parse(localStorage.getItem(titlearray[currList]));
+		console.log(currTitle_temp)
 		$.each(listValues,function(key,val){
 			currData.push(val);
 			if($.inArray(key,remlist_temp) != -1) {
@@ -37,10 +81,15 @@ $(document).ready(function() {
     			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").appendTo("#mylist")
     		}
     		currDataIterator=key+1;
-   		 })
-		$.each(remlist_temp,function(key,val){
-			remlist[key] = parseInt(val);
-		})
+   		 }) 
+		if(remlist_temp != null) {
+			$.each(remlist_temp,function(key,val){
+				remlist[key] = parseInt(val);
+			})
+		}
+		$("#input_title").remove()
+    	$("h1").append("<div id=\"input_title\">" + currTitle_temp + "</div>" ).fadeIn('fast');
+
 	}
 
     if(currList == 0) {
@@ -50,7 +99,7 @@ $(document).ready(function() {
 
     $("#left_list").live('click',function() {
       	localStorage.setItem(remlists[currList], JSON.stringify(remlist));
-
+      	localStorage.setItem(titlearray[currList], JSON.stringify(currTitle));
     	localStorage.setItem(lists[currList], JSON.stringify(currData));
 
     	currList--;
@@ -59,9 +108,9 @@ $(document).ready(function() {
 			$("#left_list").hide();
 		}
 
-		console.log(currList)
 		if(localStorage.getItem(lists[currList]) != null) {
 			currData = JSON.parse(localStorage.getItem(lists[currList]));
+			currTitle = JSON.parse(localStorage.getItem(titlearray[currList]));
 			remlist = [];
 			remlist_temp = JSON.parse(localStorage.getItem(remlists[currList]));
 			$.each(remlist_temp,function(key,val){
@@ -69,11 +118,12 @@ $(document).ready(function() {
 			})
 			currDataIterator=currData.length;
 		} else {
+			currTitle = "Set Title";
 			currData = [];
 			remlist = [];
 			currDataIterator=0;
 		}
-		console.log(remlist)
+		console.log(currTitle)
 		$("#mylist li").remove()
 		$.each(currData,function(key,val){
 			if($.inArray(key,remlist) != -1) {
@@ -82,9 +132,8 @@ $(document).ready(function() {
     			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").fadeIn('slow').appendTo("#mylist")
     		}    	
     	})
-	});
-
-	$("#right_list").live('click',function() { 
+    	$("#input_title").remove()
+    	$("h1").append("<div id=\"input_title\">" + currTitle + "</div>" ).fadeIn('fast');
 
 	});
 	
@@ -95,6 +144,7 @@ $(document).ready(function() {
 
 		localStorage.setItem(remlists[currList], JSON.stringify(remlist));
 		localStorage.setItem(lists[currList], JSON.stringify(currData));
+      	localStorage.setItem(titlearray[currList], JSON.stringify(currTitle));
 
 		// make a new list element and store into array
 		currList++;
@@ -102,20 +152,21 @@ $(document).ready(function() {
 		if(currList == Object.size(lists)) {
 			remlists.push("remName"+currList);
 			lists.push("listName"+currList);
+			titlearray.push("Set List")
 		}
-		console.log(currList);
-		console.log(lists);
 
 
     	if(localStorage.getItem(lists[currList]) != null) {
 			currData = JSON.parse(localStorage.getItem(lists[currList]));
 			remlist = [];
 			remlist_temp = JSON.parse(localStorage.getItem(remlists[currList]));
+			currTitle = JSON.parse(localStorage.getItem(titlearray[currList]));
 			$.each(remlist_temp,function(key,val){
 				remlist[key] = parseInt(val);
 			})			
 			currDataIterator=currData.length;
 		} else {
+			currTitle = "Set Title";
 			currData = [];
 			remlist = [];
 			currDataIterator=0;
@@ -129,7 +180,8 @@ $(document).ready(function() {
     			$("<li id='"+key+"'>" + val + "<button id=\"delete\" value=\"x\">x</button>" + "</li>").fadeIn('slow').appendTo("#mylist")
     		}    	
     	})
-
+    	 $("#input_title").remove()
+    	$("h1").append("<div id=\"input_title\">" + currTitle + "</div>" ).fadeIn('fast');
 	});
 
 	$("#add_new_item").click(function() {
