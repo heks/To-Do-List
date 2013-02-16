@@ -9,7 +9,7 @@
 	var remlist = [];
 $(document).ready(function() {
 
-	localStorage.clear()
+	//localStorage.clear()
 
 	$("#new_item").attr("value", "Add item...");
 	text = "Add item...";
