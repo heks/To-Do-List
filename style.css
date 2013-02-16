@@ -19,6 +19,21 @@ h1 {
 
 }
 
+input#input_title {
+	color: #378de5;
+	text-align: center;
+	text-shadow:0px 1px 0px #000000;
+	padding: 0px;  
+    border: solid 1px #E5E5E5;  
+    outline: 0;  
+    font: 800 65px Arial, bold sans-serif;  
+    background: #FFFFFF; 
+}
+
+#input_title:hover {
+	border-color: #C9C9C9;
+}
+
 
 ul {
   list-style-type: none;
